@@ -36,12 +36,7 @@ export default function PhilosophyheroSection() {
   return (
     <section className="relative w-full min-h-[calc(100vh-200px)] flex items-center justify-center overflow-hidden">
       {/* Background image with overlay */}
-      <div
-        className="absolute inset-0 bg-cover bg-center z-0"
-        style={{
-          backgroundImage: 'url(/philosophy.png)',
-        }}
-      >
+      <div className="absolute inset-0 bg-cover bg-center z-0 bg-[url('/philosophy.png')]">
         <div className="absolute inset-0 bg-black/40"></div>
       </div>
 

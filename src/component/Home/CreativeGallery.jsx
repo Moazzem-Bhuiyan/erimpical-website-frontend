@@ -16,23 +16,23 @@ import { useRouter } from 'next/navigation';
 const data = [
   {
     id: 1,
-    image: '/gellary/gallery1.png',
+    image: '/gallery/gallery1.png',
   },
   {
     id: 2,
-    image: '/gellary/gallery2.png',
+    image: '/gallery/gallery2.png',
   },
   {
     id: 3,
-    image: '/gellary/gallery3.png',
+    image: '/gallery/gallery3.png',
   },
   {
     id: 4,
-    image: '/gellary/gallery4.png',
+    image: '/gallery/gallery4.png',
   },
   {
     id: 5,
-    image: '/gellary/gallery5.png',
+    image: '/gallery/gallery5.png',
   },
 ];
 

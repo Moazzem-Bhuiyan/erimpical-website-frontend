@@ -24,7 +24,7 @@ export const metadata = {
     template: '%s | Empirical -  Website',
   },
   description:
-    ' This is a Pec Electrical Website by using this platfrom you can book electrical services',
+    'Empirical is a cutting-edge platform that leverages advanced technologies to provide innovative solutions for data analysis, visualization, and decision-making. Our mission is to empower businesses and individuals with the tools they need to harness the power of their data effectively.',
 };
 
 export default function RootLayout({ children }) {

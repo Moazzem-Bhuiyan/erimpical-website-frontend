@@ -4,16 +4,18 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Animatetext from '@/component/AnimatedText/AnimatedText';
+import { useGetGalleryQuery } from '@/redux/api/galleryApi';
+import Image from 'next/image';
 
-const GALLERY_ITEMS = [
-  { id: 1, image: '/gallery/gallery1.png', span: 'col-span-1 row-span-2' },
-  { id: 2, image: '/gallery/gallery2.png', span: 'col-span-1 row-span-1' },
-  { id: 3, image: '/gallery/gallery3.png', span: 'col-span-1 row-span-1' },
-  { id: 4, image: '/gallery/gallery4.png', span: 'col-span-1 row-span-1' },
-  { id: 5, image: '/gallery/gallery3.png', span: 'col-span-1 row-span-1' },
-  { id: 6, image: '/gallery/gallery1.png', span: 'col-span-2 row-span-1' },
-  { id: 7, image: '/gallery/gallery2.png', span: 'col-span-1 row-span-2' },
-  { id: 8, image: '/gallery/gallery4.png', span: 'col-span-1 row-span-1' },
+const SPAN_PATTERN = [
+  'col-span-1 row-span-2 ',
+  'col-span-1 row-span-1',
+  'col-span-1 row-span-1',
+  'col-span-1 row-span-1',
+  'col-span-1 row-span-1',
+  'col-span-2 row-span-1',
+  'col-span-1 row-span-2',
+  'col-span-1 row-span-1',
 ];
 
 const ITEMS_PER_PAGE = 8;
@@ -21,6 +23,36 @@ const TOTAL_PAGES = 30;
 
 export default function GalleryPage() {
   const [currentPage, setCurrentPage] = useState(1);
+
+  // get gellary from api
+
+  const { data, isLoading, isError } = useGetGalleryQuery();
+
+  if (isLoading) {
+    return (
+      <main className="min-h-screen bg-background w-full">
+        <div className="!px-4 md:!px-8 !py-12">
+          <div className="grid grid-cols-4 gap-4 auto-rows-[250px]">
+            {Array(ITEMS_PER_PAGE)
+              .fill(0)
+              .map((_, index) => (
+                <div
+                  key={index}
+                  className={`${SPAN_PATTERN[index % SPAN_PATTERN.length]} 
+                relative overflow-hidden rounded-lg`}
+                >
+                  <div className="w-full h-full bg-muted rounded-lg animate-pulse" />
+                </div>
+              ))}
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  if (isError) {
+    return <div className="flex h-screen items-center justify-center">Something went wrong</div>;
+  }
 
   const handlePrevious = () => {
     setCurrentPage((prev) => (prev === 1 ? TOTAL_PAGES : prev - 1));
@@ -93,23 +125,22 @@ export default function GalleryPage() {
         animate="visible"
       >
         <div className="grid grid-cols-4 gap-4 auto-rows-[250px]">
-          {GALLERY_ITEMS.map((item) => (
+          {data?.data?.map((item, index) => (
             <motion.div
               key={item.id}
-              className={`${item.span} relative group overflow-hidden rounded-lg`}
+              className={`${SPAN_PATTERN[index % SPAN_PATTERN.length]} 
+                                                  relative group overflow-hidden rounded-lg`}
               variants={itemVariants}
               whileHover={{ scale: 1.02 }}
             >
-              <img
+              <Image
+                fill
                 src={item.image || '/placeholder.svg'}
                 alt={`Gallery item ${item.id}`}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
-              {/* Overlay on hover */}
-              <motion.div
-                className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                initial={false}
-              />
+
+              <motion.div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </motion.div>
           ))}
         </div>

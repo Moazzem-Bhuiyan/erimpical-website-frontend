@@ -1,12 +1,21 @@
 'use client';
 import Animatetext from '@/component/AnimatedText/AnimatedText';
-import { articles, containerVariants } from '@/component/Home/ArticleSection';
+import { containerVariants } from '@/component/Home/ArticleSection';
 import ArticleCard from '@/component/shared/ArticleCard/Articlecard';
 import { Input } from '@/components/ui/input';
 import React from 'react';
 import { motion } from 'framer-motion';
+import UsegetAllArticle from '@/Hooks/UsegetAllArticle';
+import { SkeletonCard } from '@/component/shared/Skeleton/SkeletonLoader';
 
 export default function AricleContainer() {
+  // get products from api
+  const { article, loading, error } = UsegetAllArticle({ limit: 10, page: 1, searchtext: '' });
+  if (loading) {
+    // <SkeletonCard />;
+    <h1>loading....</h1>;
+  }
+
   return (
     <div>
       <div className="!px-4 sm:!px-6 lg:!px-8 !mt-20">
@@ -38,7 +47,7 @@ export default function AricleContainer() {
           >
             {/* Articles Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {articles.map((article, index) => (
+              {article?.data?.map((article, index) => (
                 <ArticleCard key={article.id} {...article} index={index} />
               ))}
             </div>

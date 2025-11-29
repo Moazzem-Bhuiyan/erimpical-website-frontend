@@ -5,12 +5,13 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 
-export default function ProductInfo() {
+export default function ProductInfo({ info }) {
   const [selectedSize, setSelectedSize] = useState('M');
   const [quantity, setQuantity] = useState(1);
   const router = useRouter();
 
-  const sizes = ['XS', 'S', 'M', 'L'];
+  // const sizes = ['XS', 'S', 'M', 'L'];
+  const sizes = info.sizes;
 
   return (
     <motion.div
@@ -21,41 +22,35 @@ export default function ProductInfo() {
     >
       {/* Product Title and Price */}
       <div>
-        <h1 className="text-4xl md:text-5xl font-bold !mb-3">Cotton sweatshirt</h1>
-        <p className="text-3xl font-semibold">$1,299</p>
+        <h1 className="text-4xl md:text-5xl font-bold !mb-3">{info?.title || 'Product Title'}</h1>
+        <p className="text-3xl font-semibold">$ {info?.price || '00.00'}</p>
       </div>
 
       {/* Description */}
       <div className="!space-y-3 text-muted-foreground">
-        <p>
-          Experience comfort and style with our premium Classic Cotton T-Shirt — your go-to
-          essential for everyday wear. Crafted from 100% soft, breathable cotton, this tee offers
-          the perfect blend of comfort, durability, and a modern fit.
-        </p>
-        <p>
-          Designed with a classic crew neckline and short sleeves, it pairs effortlessly with jeans,
-          joggers, or shorts for a casual yet polished look. The fabric is lightweight and
-          pre-shrunk, ensuring a perfect fit wash after wash.
-        </p>
+        <div
+          className="pro-description text-sm text-foreground"
+          dangerouslySetInnerHTML={{ __html: info?.description || 'Product Description' }}
+        />
       </div>
 
       {/* Size Selection */}
       <div>
         <label className="block text-sm font-semibold !mb-3">Size</label>
         <div className="flex gap-2">
-          {sizes.map((size) => (
+          {info.size?.map((sizeItem) => (
             <motion.button
-              key={size}
-              onClick={() => setSelectedSize(size)}
+              key={sizeItem.type}
+              onClick={() => setSelectedSize(sizeItem.type)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className={`!px-4 !py-2 rounded-lg border-2 font-medium transition-all cursor-pointer ${
-                selectedSize === size
+                selectedSize === sizeItem.type
                   ? 'border-foreground bg-foreground text-background'
                   : 'border-border hover:border-foreground'
               }`}
             >
-              {size}
+              {sizeItem.type.toUpperCase()} ({sizeItem.quantity})
             </motion.button>
           ))}
         </div>

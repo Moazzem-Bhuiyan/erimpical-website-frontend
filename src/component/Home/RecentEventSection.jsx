@@ -5,39 +5,7 @@ import { ArrowRight } from 'lucide-react';
 import EventCard from '../EventCard/EventCard';
 import Animatetext from '../AnimatedText/AnimatedText';
 import { useRouter } from 'next/navigation';
-
-export const events = [
-  {
-    id: 1,
-    title: 'Fashion Launch Night',
-    location: 'Dhaka Art Gallery',
-    description:
-      'A night of creativity, style, and art. Join us for an exclusive fashion showcase featuring emerging designers.',
-    date: 'November 12, 2025',
-    time: '6:00 PM',
-    image: '/event/event1.png',
-  },
-  {
-    id: 2,
-    title: 'Creative Art Workshop',
-    location: 'Creative Studio Dhaka',
-    description:
-      'Hands-on workshop for artists of all levels. Learn new techniques and create amazing artworks with expert guidance.',
-    date: 'November 12, 2025',
-    time: '6:00 PM',
-    image: '/event/event2.png',
-  },
-  {
-    id: 3,
-    title: 'Live Music Concert',
-    location: 'Dhaka Concert Hall',
-    description:
-      'An unforgettable night of live music featuring local and international artists. Dance, sing, and celebrate!',
-    date: 'November 12, 2025',
-    time: '6:00 PM',
-    image: '/event/event3.png',
-  },
-];
+import UsegetAllEvent from '@/Hooks/UseGetAllEvent';
 
 export const containerVariants = {
   hidden: { opacity: 0 },
@@ -52,6 +20,7 @@ export const containerVariants = {
 
 export default function EventsSection() {
   const router = useRouter();
+  const { event, loading } = UsegetAllEvent({ limit: 3, page: 1, searchtext: '' });
   return (
     <section className="!py-20 !px-4 sm:!px-6 lg:!px-8 bg-background !my-10">
       <motion.div
@@ -96,11 +65,11 @@ export default function EventsSection() {
         </motion.div>
 
         {/* Events Grid */}
-        <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {events.map((event, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {event?.data?.map((event, index) => (
             <EventCard key={event.id} event={event} index={index} />
           ))}
-        </motion.div>
+        </div>
       </motion.div>
     </section>
   );

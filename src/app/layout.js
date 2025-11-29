@@ -3,6 +3,8 @@ import './globals.css';
 import Navber from '@/component/shared/Navber/Navber';
 import { Footer } from '@/component/shared/Footer/Footer';
 import ScrollTop from '@/component/ScrollTop/ScrollTop';
+import ReduxProviders from '@/redux/lib/Providers';
+import { Toaster } from 'sonner';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -35,8 +37,11 @@ export default function RootLayout({ children }) {
         <h1 className="text-xl text-center !bg-black !text-white !p-2 border">
           YOUR REALITY ISN &nbsp;T MINE
         </h1>
+        <Toaster richColors position="top-center" />
         <Navber />
-        <main className="min-h-[100vh] !z-0 w-full top-0 relative">{children}</main>
+        <ReduxProviders>
+          <main className="min-h-[100vh] !z-0 w-full top-0 relative">{children}</main>
+        </ReduxProviders>
         <Footer />
         <ScrollTop />
       </body>

@@ -33,7 +33,8 @@ const imageVariants = {
   },
 };
 
-export default function EventDetailsPage() {
+export default function EventDetailsPage({ EventDetails }) {
+  const event = EventDetails?.data;
   const aboutParagraphs = [
     'The Finance Growth Summit 2025 was conceived to address the rapidly evolving landscape of financial services in an era of digital transformation and sustainability consciousness. Organized by the Bangladesh Finance Institute in collaboration with leading industry partners, this summit represents a pivotal moment for financial professionals to understand and shape the future of finance.',
     'Our mission extends beyond traditional finance discourse. We aim to bridge the gap between established financial institutions and emerging fintech solutions, while emphasizing the critical importance of sustainable practices. The summit serves as a catalyst for meaningful discussions about financial inclusion, digital banking innovations, and the future of ethical finance.',
@@ -68,7 +69,7 @@ export default function EventDetailsPage() {
             className="rounded-lg overflow-hidden h-64 md:h-80 relative"
           >
             <Image
-              src="/event/eventcover.png"
+              src={event?.thumbnail || '/fashion-launch-night.jpg'}
               alt="Fashion Launch Night Event"
               fill
               className="object-cover"
@@ -81,13 +82,13 @@ export default function EventDetailsPage() {
             className="flex flex-col md:flex-row md:items-center gap-4 text-sm text-muted-foreground"
           >
             <div className="flex items-center gap-2">
-              <span>📍 Delhi Concert Hall</span>
+              <span>📍{event?.location}</span>
             </div>
             <div className="flex items-center gap-2">
-              <span>📅 November 12, 2025</span>
+              <span>📅 {event?.date}</span>
             </div>
             <div className="flex items-center gap-2">
-              <span>🕐 6:00 PM</span>
+              <span>🕐 {event?.time}</span>
             </div>
           </motion.div>
 
@@ -96,7 +97,7 @@ export default function EventDetailsPage() {
             variants={itemVariants}
             className="text-4xl md:text-5xl font-bold text-foreground"
           >
-            Fashion Launch Night
+            {event?.title}
           </motion.h1>
 
           {/* Introduction */}
@@ -104,13 +105,14 @@ export default function EventDetailsPage() {
             variants={itemVariants}
             className="text-lg text-muted-foreground leading-relaxed"
           >
-            Join us for an extraordinary gathering of finance professionals, innovators, and thought
-            leaders as we explore the future of financial services. This summit brings together
-            industry experts to discuss emerging trends, sustainable finance practices, and
-            technological innovations shaping tomorrow's financial landscape.
+            <div
+              dangerouslySetInnerHTML={{
+                __html: event?.description || 'Event Description',
+              }}
+            ></div>
           </motion.p>
 
-          {/* About Section */}
+          {/* About Section
           <motion.div variants={itemVariants} className="!space-y-6 !mt-12">
             <h2 className="text-3xl font-bold text-foreground">About This Event</h2>
             <div className="!space-y-4">
@@ -127,7 +129,7 @@ export default function EventDetailsPage() {
                 </motion.p>
               ))}
             </div>
-          </motion.div>
+          </motion.div> */}
         </motion.div>
       </div>
     </main>

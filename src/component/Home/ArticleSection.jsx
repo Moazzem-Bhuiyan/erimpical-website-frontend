@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import ArticleCard from '../shared/ArticleCard/Articlecard';
 import Animatetext from '../AnimatedText/AnimatedText';
 import { useRouter } from 'next/navigation';
+import UsegetAllArticle from '@/Hooks/UsegetAllArticle';
 
 export const articles = [
   {
@@ -66,6 +67,11 @@ const buttonVariants = {
 
 export default function ArticlesSection() {
   const router = useRouter();
+
+  // get products from api
+  const { article, loading, error } = UsegetAllArticle({ limit: 3, page: 1, searchtext: '' });
+
+  console.log(article);
   return (
     <section className="w-full !py-20 !px-4 md:!px-8 bg-background !my-20">
       <motion.div
@@ -112,7 +118,7 @@ export default function ArticlesSection() {
 
         {/* Articles Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {articles.map((article, index) => (
+          {article?.data?.map((article, index) => (
             <ArticleCard key={article.id} {...article} index={index} />
           ))}
         </div>

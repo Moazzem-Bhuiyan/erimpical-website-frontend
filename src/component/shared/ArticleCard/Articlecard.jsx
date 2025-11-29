@@ -1,10 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import moment from 'moment';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-export default function ArticleCard({ image, date, title, description, index, id }) {
+export default function ArticleCard({ thumbnail, createdAt, title, description, index, _id }) {
   const router = useRouter();
 
   const containerVariants = {
@@ -74,7 +75,7 @@ export default function ArticleCard({ image, date, title, description, index, id
       initial="hidden"
       whileInView="visible"
       viewport={{ once: false, margin: '-50px' }}
-      onClick={() => router.push(`/financeArticle/${id}`)}
+      onClick={() => router.push(`/financeArticle/${_id}`)}
     >
       {/* Article Image Container */}
       <motion.div
@@ -83,7 +84,7 @@ export default function ArticleCard({ image, date, title, description, index, id
         whileHover="hover"
       >
         <Image
-          src={image || '/placeholder.svg'}
+          src={thumbnail || '/placeholder.svg'}
           alt={title}
           className="w-full h-full object-cover group-hover:scale-105 transition-all duration-300"
           width={500}
@@ -94,13 +95,28 @@ export default function ArticleCard({ image, date, title, description, index, id
       {/* Article Info */}
       <motion.div className="flex flex-col gap-3" variants={textVariants}>
         {/* Date */}
-        <span className="text-xs text-muted-foreground">{date}</span>
+        <span className="text-xs text-muted-foreground">{moment(createdAt).fromNow()}</span>
 
         {/* Title */}
         <h3 className="font-bold text-lg text-foreground">{title}</h3>
 
         {/* Description */}
-        <p className="text-sm text-muted-foreground line-clamp-3">{description}</p>
+        <p className="text-sm text-muted-foreground line-clamp-3">
+          <div
+            className="pro-description text-sm text-gray-500"
+            dangerouslySetInnerHTML={{
+              __html: description
+                ? (() => {
+                    // Strip HTML tags
+                    const text = description.replace(/<[^>]+>/g, '');
+                    // Take first 100 chars and add ...
+                    const preview = text.length > 100 ? text.slice(0, 60) + '...' : text;
+                    return preview;
+                  })()
+                : 'Product Description',
+            }}
+          />
+        </p>
 
         {/* Read More Link */}
         <motion.a

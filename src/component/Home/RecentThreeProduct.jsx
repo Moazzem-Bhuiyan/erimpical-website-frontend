@@ -4,30 +4,8 @@ import { motion } from 'framer-motion';
 import ProductCard from '../shared/ProductCard/ProductCard';
 import Animatetext from '../AnimatedText/AnimatedText';
 import { useRouter } from 'next/navigation';
-
-const products = [
-  {
-    id: 1,
-    name: 'Premium Cotton Tee',
-    price: 25.0,
-    originalPrice: 30.0,
-    image: '/product/product1.png',
-  },
-  {
-    id: 2,
-    name: 'Urban Hoodie',
-    price: 25.0,
-    originalPrice: 30.0,
-    image: '/product/product2.png',
-  },
-  {
-    id: 3,
-    name: 'Comfort Sweats',
-    price: 25.0,
-    originalPrice: 50.0,
-    image: '/product/product3.png',
-  },
-];
+import UsegetAllProduct from '@/Hooks/UsegetAllProduct';
+import { useState } from 'react';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -67,6 +45,14 @@ const bannerVariants = {
 
 export default function ProductsSection() {
   const router = useRouter();
+  const [currentPage, setCurrentPage] = useState(1);
+  const limit = 10;
+  // get products from api
+  const { product, totalPages, loading, error } = UsegetAllProduct({
+    limit,
+    page: currentPage,
+  });
+
   return (
     <section className="w-full !py-20 !my-10 !px-4 md:!px-8 bg-background">
       <motion.div
@@ -108,7 +94,7 @@ export default function ProductsSection() {
           {/* Products Grid */}
           <div className="lg:col-span-3">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {products.map((product, index) => (
+              {product?.data?.map((product, index) => (
                 <ProductCard key={product.id} {...product} index={index} />
               ))}
             </div>

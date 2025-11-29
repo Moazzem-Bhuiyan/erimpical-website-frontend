@@ -1,31 +1,10 @@
 'use client';
 
 import ProductCard from '@/component/shared/ProductCard/ProductCard';
+import { AnimatedSkeletonCard } from '@/component/shared/Skeleton/SkeletonLoader';
+import UsegetAllProduct from '@/Hooks/UsegetAllProduct';
 import { motion } from 'framer-motion';
-
-const products = [
-  {
-    id: 1,
-    name: 'Premium Cotton Tee',
-    price: 25.0,
-    originalPrice: 30.0,
-    image: '/product/product1.png',
-  },
-  {
-    id: 2,
-    name: 'Urban Hoodie',
-    price: 25.0,
-    originalPrice: 30.0,
-    image: '/product/product2.png',
-  },
-  {
-    id: 3,
-    name: 'Comfort Sweats',
-    price: 25.0,
-    originalPrice: 50.0,
-    image: '/product/product3.png',
-  },
-];
+import { useState } from 'react';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -38,6 +17,18 @@ const containerVariants = {
 };
 
 const ProductContainer = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const limit = 10;
+  // get products from api
+  const { product, totalPages, loading, error } = UsegetAllProduct({
+    limit,
+    page: currentPage,
+  });
+  if (loading) {
+    <div>
+      <AnimatedSkeletonCard />
+    </div>;
+  }
   return (
     <section className="w-full !px-4 md:!px-8 bg-background ">
       <motion.div
@@ -48,7 +39,7 @@ const ProductContainer = () => {
         viewport={{ once: true, margin: '-100px' }}
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((product, index) => (
+          {product?.data?.map((product, index) => (
             <ProductCard key={product.id} {...product} index={index} />
           ))}
         </div>

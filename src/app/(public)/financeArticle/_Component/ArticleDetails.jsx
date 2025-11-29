@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
+import moment from 'moment';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -33,13 +34,7 @@ const imageVariants = {
   },
 };
 
-export default function ArticleDetailsPage() {
-  const aboutParagraphs = [
-    'The Finance Growth Summit 2025 was conceived to address the rapidly evolving landscape of financial services in an era of digital transformation and sustainability consciousness. Organized by the Bangladesh Finance Institute in collaboration with leading industry partners, this summit represents a pivotal moment for financial professionals to understand and shape the future of finance.',
-    'Our mission extends beyond traditional finance discourse. We aim to bridge the gap between established financial institutions and emerging fintech solutions, while emphasizing the critical importance of sustainable practices. The summit serves as a catalyst for meaningful discussions about financial inclusion, digital banking innovations, and the future of ethical finance.',
-    'Through interactive sessions, panel discussions, and networking opportunities, attendees will gain invaluable insights into market trends, regulatory changes, and technological advancements that are reshaping the financial sector. This event is designed to inspire collaboration and drive positive change in the financial industry.',
-  ];
-
+export default function ArticleDetailsPage({ ArticleDetails }) {
   return (
     <main className="min-h-screen bg-background">
       <div className="max-w-7xl !mx-auto !px-4 md:!px-8 !py-12">
@@ -68,7 +63,7 @@ export default function ArticleDetailsPage() {
             className="rounded-lg overflow-hidden h-64 md:h-80 relative"
           >
             <Image
-              src="/article/cover.png"
+              src={ArticleDetails?.data?.thumbnail || '/fashion-launch-night.jpg'}
               alt="Fashion Launch Night Event"
               fill
               className="object-cover"
@@ -81,13 +76,7 @@ export default function ArticleDetailsPage() {
             className="flex flex-col md:flex-row md:items-center gap-4 text-sm text-muted-foreground"
           >
             <div className="flex items-center gap-2">
-              <span>📍 Delhi Concert Hall</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span>📅 November 12, 2025</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span>🕐 6:00 PM</span>
+              <span>📅 {moment(ArticleDetails?.data?.createdAt).fromNow()}</span>
             </div>
           </motion.div>
 
@@ -96,7 +85,7 @@ export default function ArticleDetailsPage() {
             variants={itemVariants}
             className="text-4xl md:text-5xl font-bold text-foreground"
           >
-            Fashion Launch Night
+            {ArticleDetails?.data?.title || ''}
           </motion.h1>
 
           {/* Introduction */}
@@ -104,14 +93,15 @@ export default function ArticleDetailsPage() {
             variants={itemVariants}
             className="text-lg text-muted-foreground leading-relaxed"
           >
-            Join us for an extraordinary gathering of finance professionals, innovators, and thought
-            leaders as we explore the future of financial services. This summit brings together
-            industry experts to discuss emerging trends, sustainable finance practices, and
-            technological innovations shaping tomorrow's financial landscape.
+            <div
+              dangerouslySetInnerHTML={{
+                __html: ArticleDetails?.data?.description || 'Article Description',
+              }}
+            ></div>
           </motion.p>
 
           {/* About Section */}
-          <motion.div variants={itemVariants} className="!space-y-6 !mt-12">
+          {/* <motion.div variants={itemVariants} className="!space-y-6 !mt-12">
             <h2 className="text-3xl font-bold text-foreground">About This Event</h2>
             <div className="!space-y-4">
               {aboutParagraphs.map((paragraph, index) => (
@@ -127,7 +117,7 @@ export default function ArticleDetailsPage() {
                 </motion.p>
               ))}
             </div>
-          </motion.div>
+          </motion.div> */}
         </motion.div>
       </div>
     </main>

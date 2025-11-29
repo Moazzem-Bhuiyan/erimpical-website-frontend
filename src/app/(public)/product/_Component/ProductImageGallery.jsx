@@ -4,19 +4,11 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
-export default function ProductImageGallery({ images = [] }) {
+export default function ProductImageGallery({ images = [], Productimages }) {
+  console.log('Productimages', Productimages);
   const [selectedImage, setSelectedImage] = useState(0);
 
-  const defaultImages = [
-    '/product/productDetailsImage1.png',
-    '/product/productDetailsImage2.png',
-    '/product/productDetailsImage3.png',
-    '/product/productDetailsImage4.png',
-    '/product/productDetailsImage5.png',
-    '/product/productDetailsImage6.png',
-  ];
-
-  const galleryImages = images.length > 0 ? images : defaultImages;
+  const galleryImages = images.length > 0 ? images : Productimages;
 
   return (
     <div className="flex flex-col gap-4">

@@ -12,32 +12,11 @@ import {
 } from '@/components/ui/carousel';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-
-const data = [
-  {
-    id: 1,
-    image: '/gallery/gallery1.png',
-  },
-  {
-    id: 2,
-    image: '/gallery/gallery2.png',
-  },
-  {
-    id: 3,
-    image: '/gallery/gallery3.png',
-  },
-  {
-    id: 4,
-    image: '/gallery/gallery4.png',
-  },
-  {
-    id: 5,
-    image: '/gallery/gallery5.png',
-  },
-];
+import { useGetGalleryQuery } from '@/redux/api/galleryApi';
 
 export default function CreativeGallery() {
   const router = useRouter();
+  const { data, isLoading, isError } = useGetGalleryQuery();
   return (
     <div className="!py-20 !px-4 sm:!px-6 lg:!px-8 bg-background !my-10">
       {/* Header */}
@@ -83,7 +62,7 @@ export default function CreativeGallery() {
         className="w-full max-w-full !mx-auto"
       >
         <CarouselContent className="-ml-2 md:-ml-4">
-          {data.map((item, index) => (
+          {data?.data?.map((item, index) => (
             <CarouselItem
               key={item.id}
               className="pl-2 md:pl-4 basis-1/2 sm:basis-1/2 md:basis-1/3 lg:basis-1/4"

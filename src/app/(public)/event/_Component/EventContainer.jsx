@@ -1,12 +1,14 @@
 'use client';
 import Animatetext from '@/component/AnimatedText/AnimatedText';
 import EventCard from '@/component/EventCard/EventCard';
-import { containerVariants, events } from '@/component/Home/RecentEventSection';
+import { containerVariants } from '@/component/Home/ArticleSection';
 import { Input } from '@/components/ui/input';
+import UsegetAllEvent from '@/Hooks/UseGetAllEvent';
 import { motion } from 'framer-motion';
 
 export default function EventContainer() {
-  const event = events;
+  const { event, loading } = UsegetAllEvent({ limit: 10, page: 1, searchtext: '' });
+
   return (
     <div className="!px-4 sm:!px-6 lg:!px-8 !mt-20">
       <div className=" !my-10 !space-y-10">
@@ -36,11 +38,11 @@ export default function EventContainer() {
           className="max-w-[80%] !mx-auto"
         >
           {/* Events Grid */}
-          <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {event.map((event, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {event?.data?.map((event, index) => (
               <EventCard key={event.id} event={event} index={index} />
             ))}
-          </motion.div>
+          </div>
         </motion.div>
       </section>
     </div>

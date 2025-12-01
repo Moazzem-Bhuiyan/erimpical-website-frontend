@@ -14,7 +14,7 @@ const authApi = baseApi.injectEndpoints({
 
     signIn: builder.mutation({
       query: (data) => ({
-        url: '/auth/sign-in',
+        url: '/auth/login',
         method: 'POST',
         body: data,
       }),
@@ -24,7 +24,7 @@ const authApi = baseApi.injectEndpoints({
 
     verifyOtp: builder.mutation({
       query: (data) => ({
-        url: '/auth/verify-account',
+        url: '/otp/verify-otp',
         method: 'POST',
         body: data,
       }),
@@ -64,6 +64,14 @@ const authApi = baseApi.injectEndpoints({
 
       // invalidatesTags: [tagTypes.auth],
     }),
+
+    // my user profile
+    myProfile: builder.query({
+      query: () => ({
+        url: '/users/my-profile',
+        method: 'GET',
+      }),
+    }),
   }),
 
   overrideExisting: true,
@@ -76,4 +84,5 @@ export const {
   useResendOtpMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
+  useMyProfileQuery,
 } = authApi;

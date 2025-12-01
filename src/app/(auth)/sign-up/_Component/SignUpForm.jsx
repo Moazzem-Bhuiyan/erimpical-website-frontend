@@ -29,7 +29,7 @@ export default function SignUpForm() {
   const [signUp, { isLoading }] = useSignUpMutation();
   const onSignUpSubmit = async (data) => {
     // delete confirm password
-    delete data['confirmPassword'];
+    // delete data['confirmPassword'];
     try {
       const res = await signUp(data).unwrap();
       if (res.success) {

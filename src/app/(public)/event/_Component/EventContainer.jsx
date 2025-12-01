@@ -5,9 +5,15 @@ import { containerVariants } from '@/component/Home/ArticleSection';
 import { Input } from '@/components/ui/input';
 import UsegetAllEvent from '@/Hooks/UseGetAllEvent';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 export default function EventContainer() {
-  const { event, loading } = UsegetAllEvent({ limit: 10, page: 1, searchtext: '' });
+  const [searchtext, setSearchtext] = useState('');
+  const { event, loading } = UsegetAllEvent({ limit: 10, page: 1, searchtext });
+
+  if (loading) {
+    <h1>loading....</h1>;
+  }
 
   return (
     <div className="!px-4 sm:!px-6 lg:!px-8 !mt-20">
@@ -24,7 +30,11 @@ export default function EventContainer() {
           </h1>
         </Animatetext>
         <div className="flex justify-center">
-          <Input placeholder="Search Events" className={'mt-4 w-[20%] !mx-auto'} />
+          <Input
+            onChange={(e) => setSearchtext(e.target.value)}
+            placeholder="Search Events"
+            className={'mt-4 w-[20%] !mx-auto'}
+          />
         </div>
       </div>
 
@@ -39,6 +49,7 @@ export default function EventContainer() {
         >
           {/* Events Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {event?.data?.length === 0 && <h1>No Events Found</h1>}{' '}
             {event?.data?.map((event, index) => (
               <EventCard key={event.id} event={event} index={index} />
             ))}

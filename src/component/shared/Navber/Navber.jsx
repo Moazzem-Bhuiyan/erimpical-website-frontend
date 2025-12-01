@@ -7,6 +7,10 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { selectToken } from '@/redux/slices/authSlice';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useMyProfileQuery } from '@/redux/api/authApi';
 
 // Links
 const LINKS = [
@@ -51,6 +55,14 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const router = useRouter();
 
+  const token = useSelector(selectToken);
+
+  // get user info from api
+  const { data } = useMyProfileQuery({
+    skip: !token,
+  });
+  const user = data?.data;
+
   return (
     <div className="!mt-2  flex items-center justify-center  !w-full top-0 z-50">
       {/* Desktop Version */}
@@ -72,15 +84,31 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Right ----- Buttons */}
-        <Button
-          onClick={() => {
-            router.push('/login');
-          }}
-          className=" !bg-black !text-white w-[100px] cursor-pointer !py-2 !px-4 !rounded-full !text-center !text-sm"
-        >
-          Sing In / Up
-        </Button>
+        {/*=============================Right ----- Buttons================ */}
+
+        {token ? (
+          <Button
+            className="bg-white rounded-full cursor-pointer hover:bg-white/90 transition duration-300 ease-in-out"
+            onClick={() => router.push('/profile')}
+          >
+            {' '}
+            <Avatar>
+              <AvatarImage src={user?.photoUrl} alt="@shadcn" />
+              <AvatarFallback className="text-2xl text-orange-400 border border-orange-400 !p-2">
+                {user?.name[0]}
+              </AvatarFallback>
+            </Avatar>
+          </Button>
+        ) : (
+          <Button
+            onClick={() => {
+              router.push('/login');
+            }}
+            className=" !bg-black !text-white w-[100px] cursor-pointer !py-2 !px-4 !rounded-full !text-center !text-sm"
+          >
+            Sing In / Up
+          </Button>
+        )}
       </div>
 
       {/* Mobile Version */}

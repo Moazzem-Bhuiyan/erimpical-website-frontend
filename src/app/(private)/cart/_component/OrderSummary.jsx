@@ -1,8 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { BillingDetailsFormModal } from './BillingDetailsFormModal';
 
-export default function OrderSummary({ subtotal, discount, deliveryFee, total }) {
+export default function OrderSummary({ subtotal, deliveryFee, total, items }) {
   const summaryVariants = {
     hidden: { opacity: 0, x: 20 },
     visible: {
@@ -26,6 +27,8 @@ export default function OrderSummary({ subtotal, discount, deliveryFee, total })
     }),
   };
 
+  // handle payment method
+
   return (
     <motion.div
       initial="hidden"
@@ -46,10 +49,10 @@ export default function OrderSummary({ subtotal, discount, deliveryFee, total })
           <span>${subtotal}</span>
         </motion.div>
 
-        <motion.div custom={1} variants={itemVariants} className="flex justify-between text-sm">
+        {/* <motion.div custom={1} variants={itemVariants} className="flex justify-between text-sm">
           <span className="text-gray-600">Discount (20%)</span>
           <span className="text-red-500 font-semibold">-${discount}</span>
-        </motion.div>
+        </motion.div> */}
 
         <motion.div
           custom={2}
@@ -69,15 +72,16 @@ export default function OrderSummary({ subtotal, discount, deliveryFee, total })
           <span>${total}</span>
         </motion.div>
 
-        <motion.button
-          custom={4}
-          variants={itemVariants}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="!mt-6 w-full rounded-full bg-black !py-3 text-white font-semibold hover:bg-gray-900 transition-colors"
-        >
-          Go to Checkout →
-        </motion.button>
+        {/* ⬇⬇⬇ Checkout opens modal */}
+        <BillingDetailsFormModal items={items} total={total}>
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="!mt-6 w-full rounded-full bg-black !py-3 text-white font-semibold"
+          >
+            Go to Checkout →
+          </motion.button>
+        </BillingDetailsFormModal>
       </div>
     </motion.div>
   );

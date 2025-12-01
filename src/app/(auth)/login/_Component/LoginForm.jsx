@@ -5,10 +5,15 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
+import { useSignInMutation } from '@/redux/api/authApi';
+import { setUser } from '@/redux/slices/authSlice';
+import { jwtDecode } from 'jwt-decode';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { toast } from 'sonner';
 
 export default function LoginForm() {
   const {
@@ -20,34 +25,31 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const [formError, setFormError] = useState(null);
+  const dispatch = useDispatch();
 
   // Login api handler
 
+  const [signIn, { isLoading }] = useSignInMutation();
+
   const onLoginSubmit = async (data) => {
-    // try {
-    //   const res = await signIn(data).unwrap();
-    //   if (res?.success) {
-    //     SuccessModal('Login Successful!');
-    //     // Send to specific `Dashboard` if user role not `Customer`
-    //     if (res?.data?.role === 'CSR') {
-    //       return router.push(process.env.NEXT_PUBLIC_CSR_DASHBOARD_URL);
-    //     } else if (res?.data?.role === 'ADMIN') {
-    //       return router.push(process.env.NEXT_PUBLIC_ADMIN_DASHBOARD_URL);
-    //     }
-    //     // Set user info into store
-    //     dispatch(
-    //       setUser({
-    //         user: jwtDecode(res?.data?.accessToken),
-    //         token: res?.data?.accessToken,
-    //       })
-    //     );
-    //     router.push('/');
-    //     router.refresh();
-    //     setFormError(null);
-    //   }
-    // } catch (error) {
-    //   setFormError(error?.data?.message || error?.error);
-    // }
+    try {
+      const res = await signIn(data).unwrap();
+      if (res?.success) {
+        toast.success('Login Successfully');
+        // Set user info into store
+        dispatch(
+          setUser({
+            user: jwtDecode(res?.data?.accessToken),
+            token: res?.data?.accessToken,
+          })
+        );
+      }
+      router.push('/');
+      router.refresh();
+      setFormError(null);
+    } catch (error) {
+      setFormError(error?.data?.message || error?.error);
+    }
   };
 
   return (
@@ -108,8 +110,10 @@ export default function LoginForm() {
           '!mt-10 h-[2.8rem] w-full rounded-xl border bg-primary cursor-pointer font-medium capitalize'
         )}
       >
-        Login
+        {isLoading ? 'Loging in...' : 'Login'}
       </Button>
+
+      {formError && <span className="shake-hr text-danger">{formError}</span>}
 
       <div className="!mt-3 flex items-center justify-center gap-2">
         <p>Don&apos;t have an account?</p>

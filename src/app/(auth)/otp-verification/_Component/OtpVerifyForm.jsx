@@ -1,8 +1,10 @@
 'use client';
 
+import CustomFormError from '@/component/shared/CustomFormError/CustomFormError';
 import { Button } from '@/components/ui/button';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import { cn } from '@/lib/utils';
+import { useVerifyOtpMutation } from '@/redux/api/authApi';
 // import { useResendOtpMutation, useVerifyOtpMutation } from '@/redux/api/authApi';
 // import { SuccessModal } from '@/utils/customModal';
 // import { successToast } from '@/utils/customToast';
@@ -23,7 +25,7 @@ export default function VerifyOtpForm() {
   const router = useRouter();
 
   // Verify otp api handler
-  // const [verifyOtp, { isLoading }] = useVerifyOtpMutation();
+  const [verifyOtp, { isLoading }] = useVerifyOtpMutation();
   // const [resendOtp, { isLoading: resendOtpLoading }] = useResendOtpMutation();
 
   // Verify otp handler
@@ -33,36 +35,34 @@ export default function VerifyOtpForm() {
       return;
     }
 
-    // try {
-    //   const res = await verifyOtp({ otp: Number(value) }).unwrap();
+    try {
+      const res = await verifyOtp({ otp: value }).unwrap();
 
-    //   if (res?.success) {
-    //     SuccessModal('OTP Verified', 'Please login to your account.');
+      if (res?.success) {
+        toast.success('OTP verified successfully');
+        // if (getFromSessionStorage('forgotPassToken')) {
+        //   // Send to update password page
+        //   router.push('/update-password');
 
-    //     if (getFromSessionStorage('forgotPassToken')) {
-    //       // Send to update password page
-    //       router.push('/update-password');
+        //   // Remove token from session storage
+        //   removeFromSessionStorage('forgotPassToken');
 
-    //       // Remove token from session storage
-    //       removeFromSessionStorage('forgotPassToken');
+        //   // Set change password token in session storage
+        //   setToSessionStorage('changePassToken', res.data.accessToken);
 
-    //       // Set change password token in session storage
-    //       setToSessionStorage('changePassToken', res.data.accessToken);
+        //   // Send to change password page
+        //   return router.push('/update-password');
+        // }
 
-    //       // Send to change password page
-    //       return router.push('/update-password');
-    //     }
-
-    //     // Remove token from session storage
-    //     removeFromSessionStorage('signUpToken');
-
-    //     // Send to login page
-    //     router.push('/login');
-    //     setFormError(null);
-    //   }
-    // } catch (error) {
-    //   setFormError(error?.message || error?.data?.message || error?.error);
-    // }
+        // Remove token from session storage
+        localStorage.removeItem('signupToken');
+        // Send to login page
+        router.push('/login');
+        setFormError(null);
+      }
+    } catch (error) {
+      setFormError(error?.message || error?.data?.message || error?.error);
+    }
   };
 
   // Resend otp handler
@@ -138,8 +138,9 @@ export default function VerifyOtpForm() {
         className={cn(
           '!mt-10 h-[2.8rem] w-full rounded-xl border bg-primary cursor-pointer font-medium capitalize'
         )}
+        onClick={handleVerifyOtp}
       >
-        Verify OTP
+        {isLoading ? 'Verifying...' : 'Verify'}
       </Button>
 
       {/* Resend otp button */}
@@ -149,7 +150,7 @@ export default function VerifyOtpForm() {
         </Button>
       </div> */}
 
-      {/* {formError && <CustomFormError formError={formError} />} */}
+      {formError && <CustomFormError formError={formError} />}
     </div>
   );
 }

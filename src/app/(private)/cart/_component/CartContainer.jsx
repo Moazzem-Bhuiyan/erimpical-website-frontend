@@ -7,45 +7,35 @@ import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import OrderSummary from './OrderSummary';
 import CartItem from './CartItem';
+import { useDeleteCartMutation, useGetCartQuery } from '@/redux/api/cartApi';
+import { toast } from 'sonner';
 
 export default function CartPage() {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: 'Gradient Graphic T-Shirt',
-      price: 145,
-      size: 'M',
-      quantity: 1,
-      image: '/product/product1.png',
-    },
-    {
-      id: 2,
-      name: 'Checkered Shirt',
-      price: 180,
-      size: 'L',
-      quantity: 1,
-      image: '/product/product2.png',
-    },
-    {
-      id: 3,
-      name: 'Skinny Fit Jeans',
-      price: 240,
-      size: 'M',
-      quantity: 1,
-      image: '/product/product3.png',
-    },
-  ]);
+  // get cart product from api
+  const { data, isLoading, error } = useGetCartQuery();
 
-  const handleRemoveItem = (itemId) => {
-    setCartItems(cartItems.filter((item) => item.id !== itemId));
+  // delte cart item
+  const [deleteCart, { isLoading: isDeleteLoading }] = useDeleteCartMutation();
+
+  const handleRemoveItem = async (itemId) => {
+    try {
+      const res = await deleteCart(itemId).unwrap();
+      if (res?.success) {
+        toast.success('Product removed from cart successfully');
+      }
+    } catch (error) {
+      toast.error(error?.data?.message || error?.error);
+    }
   };
 
   // Calculate totals
-  const subtotal = cartItems.reduce((total, item) => total + item.price, 0);
-  const discountPercentage = 20;
-  const discount = Math.round((subtotal * discountPercentage) / 100);
+
+  const subtotal = data?.data?.reduce(
+    (total, item) => total + item.discountPrice * item.quantity,
+    0
+  );
   const deliveryFee = 15;
-  const total = subtotal - discount + deliveryFee;
+  const total = subtotal + deliveryFee;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -80,7 +70,7 @@ export default function CartPage() {
 
       {/* Cart Content */}
       <div className="!mx-auto max-w-full !px-4 !py-12 sm:!px-6 lg:!px-8">
-        {cartItems.length === 0 ? (
+        {data?.data?.length === 0 ? (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -103,7 +93,7 @@ export default function CartPage() {
           >
             {/* Cart Items */}
             <motion.div className="lg:col-span-2 !space-y-4">
-              {cartItems.map((item, index) => (
+              {data?.data?.map((item, index) => (
                 <CartItem key={item.id} item={item} index={index} onRemove={handleRemoveItem} />
               ))}
             </motion.div>
@@ -112,9 +102,9 @@ export default function CartPage() {
             <div>
               <OrderSummary
                 subtotal={subtotal}
-                discount={discount}
                 deliveryFee={deliveryFee}
                 total={total}
+                items={data?.data}
               />
             </div>
           </motion.div>

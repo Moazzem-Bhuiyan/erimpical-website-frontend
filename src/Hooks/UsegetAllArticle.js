@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-const UsegetAllArticle = ({ limit, page, searchtext }) => {
+const UsegetAllArticle = ({ limit, page, searchText }) => {
   const [article, setArticle] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -13,7 +13,7 @@ const UsegetAllArticle = ({ limit, page, searchtext }) => {
       setLoading(true);
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/articles?limit=${limit}&page=${page}&searchTerm=${searchtext}`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/articles?limit=${limit}&page=${page}&searchTerm=${searchText}`,
           {
             // cache: 'force-cache',
             next: { revalidate: 5 },
@@ -32,7 +32,7 @@ const UsegetAllArticle = ({ limit, page, searchtext }) => {
     };
 
     fetchArticle();
-  }, [limit, page, searchtext]);
+  }, [limit, page, searchText]);
 
   return { article, loading, error, totalPages };
 };

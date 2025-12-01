@@ -60,7 +60,7 @@ const baseQueryWithRefreshToken = async (args, api, extraOptions) => {
 
 export const baseApi = createApi({
   reducerPath: 'baseApi',
-  tagTypes: [],
+  tagTypes: ['carts'],
   baseQuery: baseQueryWithRefreshToken,
   endpoints: () => ({}),
 });

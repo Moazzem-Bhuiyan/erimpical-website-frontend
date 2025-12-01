@@ -3,14 +3,14 @@ import Animatetext from '@/component/AnimatedText/AnimatedText';
 import { containerVariants } from '@/component/Home/ArticleSection';
 import ArticleCard from '@/component/shared/ArticleCard/Articlecard';
 import { Input } from '@/components/ui/input';
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import UsegetAllArticle from '@/Hooks/UsegetAllArticle';
-import { SkeletonCard } from '@/component/shared/Skeleton/SkeletonLoader';
 
 export default function AricleContainer() {
+  const [searchText, setSearchText] = useState('');
   // get products from api
-  const { article, loading, error } = UsegetAllArticle({ limit: 10, page: 1, searchtext: '' });
+  const { article, loading, error } = UsegetAllArticle({ limit: 10, page: 1, searchText });
   if (loading) {
     // <SkeletonCard />;
     <h1>loading....</h1>;
@@ -32,7 +32,11 @@ export default function AricleContainer() {
             </h1>
           </Animatetext>
           <div className="flex justify-center">
-            <Input placeholder="Search articles" className={'mt-4 w-[20%] !mx-auto'} />
+            <Input
+              placeholder="Search articles"
+              className={'mt-4 w-[20%] !mx-auto'}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
           </div>
         </div>
 
@@ -47,6 +51,7 @@ export default function AricleContainer() {
           >
             {/* Articles Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {article?.data?.length === 0 && <h1>No article found</h1>}{' '}
               {article?.data?.map((article, index) => (
                 <ArticleCard key={article.id} {...article} index={index} />
               ))}

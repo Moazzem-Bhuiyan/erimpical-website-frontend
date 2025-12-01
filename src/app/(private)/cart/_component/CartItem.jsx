@@ -5,14 +5,14 @@ import { Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
 
-export default function CartItem({ item, index, onRemove }) {
-  const [quantity, setQuantity] = useState(item.quantity || 1);
+export default function CartItem({ item, index, onRemove, subtotal }) {
+  // const [quantity, setQuantity] = useState(item.quantity || 1);
 
-  const handleQuantityChange = (newQuantity) => {
-    if (newQuantity >= 1) {
-      setQuantity(newQuantity);
-    }
-  };
+  // const handleQuantityChange = (newQuantity) => {
+  //   if (newQuantity >= 1) {
+  //     setQuantity(newQuantity);
+  //   }
+  // };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -41,45 +41,50 @@ export default function CartItem({ item, index, onRemove }) {
         <Image
           width={100}
           height={100}
-          src={item.image || '/placeholder.svg'}
-          alt={item.name}
+          src={item.product?.images[0] || '/placeholder.svg'}
+          alt={item.product?.title}
           className="h-full w-full object-cover"
         />
       </div>
 
       {/* Product Details */}
       <div className="flex-1">
-        <h3 className="text-sm font-semibold text-gray-900">{item.name}</h3>
-        <p className="!mt-1 text-sm text-gray-600">{item.size}</p>
-        <p className="!mt-2 text-lg font-bold text-gray-900">${item.price}</p>
+        <h3 className="text-sm font-semibold text-gray-900">{item.product?.title}</h3>
+        <div className="flex items-center !h-[20px] gap-2">
+          <p className="!mt-1 text-sm text-gray-600">{item.size}</p>
+        </div>
+        <p className="!mt-2 text-lg font-bold text-gray-900">
+          ${item?.discountPrice * item?.quantity}
+        </p>
       </div>
 
       {/* Quantity Controls */}
       <div className="flex items-center gap-3">
-        <motion.button
+        {/* <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => handleQuantityChange(quantity - 1)}
           className="rounded border border-gray-300 !px-2 !py-1 text-gray-600 hover:bg-gray-50 cursor-pointer"
         >
           −
-        </motion.button>
-        <span className="w-6 text-center text-sm font-medium">{quantity}</span>
-        <motion.button
+        </motion.button> */}
+        <span className="text-gray-400 text-sm">Quantity</span>
+        <span className="w-6 text-center text-sm font-medium">{item?.quantity}</span>
+        {/* <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => handleQuantityChange(quantity + 1)}
           className="rounded border border-gray-300 !px-2 !py-1 text-gray-600 hover:bg-gray-50 cursor-pointer"
         >
           +
-        </motion.button>
+        </motion.button> */}
       </div>
 
       {/* Delete Button */}
       <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
-        onClick={() => onRemove(item.id)}
+        onClick={() => onRemove(item._id)}
         className="flex-shrink-0 text-red-500 hover:text-red-700 cursor-pointer"
       >
         <Trash2 size={20} />

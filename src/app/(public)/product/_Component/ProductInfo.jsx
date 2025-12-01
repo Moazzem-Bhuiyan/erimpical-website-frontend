@@ -4,14 +4,45 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { selectUser } from '@/redux/slices/authSlice';
+import { useAddToCartMutation } from '@/redux/api/cartApi';
+import { toast } from 'sonner';
 
 export default function ProductInfo({ info }) {
-  const [selectedSize, setSelectedSize] = useState('M');
+  const [selectedSize, setSelectedSize] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const router = useRouter();
+  const user = useSelector(selectUser);
+  const UserId = user?._id;
 
-  // const sizes = ['XS', 'S', 'M', 'L'];
-  const sizes = info.sizes;
+  // // const sizes = ['XS', 'S', 'M', 'L'];
+  // const sizes = info.sizes;
+
+  // add to cart
+  const [addToCart, { isLoading }] = useAddToCartMutation();
+
+  const handleAddToCart = async () => {
+    if (!selectedSize) {
+      toast.error('Please select a size');
+      return;
+    }
+    const product = {
+      user: UserId,
+      product: info._id,
+      size: selectedSize,
+      quantity: quantity,
+    };
+    try {
+      const res = await addToCart(product).unwrap();
+      if (res?.success) {
+        toast.success('Product added to cart successfully');
+        router.push('/cart');
+      }
+    } catch (error) {
+      toast.error(error?.data?.message || error?.error);
+    }
+  };
 
   return (
     <motion.div
@@ -23,7 +54,7 @@ export default function ProductInfo({ info }) {
       {/* Product Title and Price */}
       <div>
         <h1 className="text-4xl md:text-5xl font-bold !mb-3">{info?.title || 'Product Title'}</h1>
-        <p className="text-3xl font-semibold">$ {info?.price || '00.00'}</p>
+        <p className="text-3xl font-semibold">$ {info?.discountPrice || '00.00'}</p>
       </div>
 
       {/* Description */}
@@ -74,12 +105,10 @@ export default function ProductInfo({ info }) {
           </button>
         </div>
         <Button
-          onClick={() => {
-            router.push('/cart');
-          }}
+          onClick={handleAddToCart}
           className="flex-1 bg-foreground text-background hover:bg-foreground/90 rounded-full !py-6 text-lg font-semibold cursor-pointer"
         >
-          Buy Now
+          {isLoading ? 'Adding...' : 'Add to Cart'}
         </Button>
       </div>
     </motion.div>

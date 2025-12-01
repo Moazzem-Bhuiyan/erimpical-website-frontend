@@ -55,7 +55,7 @@ export function Footer() {
             <div className="!space-y-4">
               <ul className="!space-y-3 text-sm md:text-base text-stone-900">
                 <li>
-                  <a href="#" className="hover:text-stone-600 transition">
+                  <a href="/home" className="hover:text-stone-600 transition">
                     Home
                   </a>
                 </li>
@@ -135,15 +135,15 @@ export function Footer() {
           {/* Bottom Footer */}
           <div className="flex flex-col md:flex-row justify-between items-center text-xs md:text-sm text-stone-700 gap-4">
             <div className="flex flex-wrap gap-6 justify-center md:justify-start">
-              <a href="#" className="hover:text-stone-900 transition">
+              <a href="/terms" className="hover:text-stone-900 transition">
                 Terms Conditions
               </a>
-              <a href="#" className="hover:text-stone-900 transition">
+              <a href="/privacy" className="hover:text-stone-900 transition">
                 Privacy Policy
               </a>
-              <a href="#" className="hover:text-stone-900 transition">
+              {/* <a href="#" className="hover:text-stone-900 transition">
                 Support
-              </a>
+              </a> */}
             </div>
             <p className="text-center md:text-right">© 2025 EMPIRICAL. All Rights Reserved</p>
           </div>

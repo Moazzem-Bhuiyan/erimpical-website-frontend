@@ -38,8 +38,8 @@ export default function RootLayout({ children }) {
           YOUR REALITY ISN &nbsp;T MINE
         </h1>
         <Toaster richColors position="top-center" />
-        <Navber />
         <ReduxProviders>
+          <Navber />
           <main className="min-h-[100vh] !z-0 w-full top-0 relative">{children}</main>
         </ReduxProviders>
         <Footer />

@@ -51,6 +51,8 @@ export default function ProductsSection() {
   const { product, totalPages, loading, error } = UsegetAllProduct({
     limit,
     page: currentPage,
+    searchText: '',
+    priceRange: [0, 100],
   });
 
   return (

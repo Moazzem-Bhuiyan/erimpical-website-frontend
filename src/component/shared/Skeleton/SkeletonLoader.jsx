@@ -3,12 +3,12 @@
 import { Skeleton } from '@/components/ui/skeleton';
 import { motion } from 'framer-motion';
 
-export function AnimatedSkeletonCard({ count = 12 }) {
+export function AnimatedSkeletonCard({ count = 3 }) {
   const containerVariants = {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.05, // faster stagger
+        staggerChildren: 0.05,
       },
     },
   };

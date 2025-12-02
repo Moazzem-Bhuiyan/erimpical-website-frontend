@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-const UsegetAllProduct = ({ limit, page }) => {
+const UsegetAllProduct = ({ limit, page, searchText, priceRange }) => {
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -13,7 +13,7 @@ const UsegetAllProduct = ({ limit, page }) => {
       setLoading(true);
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/products?limit=${limit}&page=${page}`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/products?limit=${limit}&page=${page}&searchTerm=${searchText}&priceRange=${priceRange}`,
           {
             // cache: 'force-cache',
             next: { revalidate: 5 },
@@ -32,7 +32,7 @@ const UsegetAllProduct = ({ limit, page }) => {
     };
 
     fetchProduct();
-  }, [limit, page]);
+  }, [limit, page, searchText, priceRange]);
 
   return { product, loading, error, totalPages };
 };

@@ -1,5 +1,6 @@
 'use client';
 
+import ReusablePagination from '@/component/shared/CustomPagination/CustomPagination';
 import ProductCard from '@/component/shared/ProductCard/ProductCard';
 import { AnimatedSkeletonCard } from '@/component/shared/Skeleton/SkeletonLoader';
 import UsegetAllProduct from '@/Hooks/UsegetAllProduct';
@@ -16,18 +17,24 @@ const containerVariants = {
   },
 };
 
-const ProductContainer = () => {
+const ProductContainer = ({ filters }) => {
+  console.log('🚀 ~ ProductContainer ~ filters:', filters);
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 10;
+
   // get products from api
   const { product, totalPages, loading, error } = UsegetAllProduct({
     limit,
     page: currentPage,
+    searchText: filters.search,
+    priceRange: filters.priceRange,
   });
   if (loading) {
-    <div>
-      <AnimatedSkeletonCard />
-    </div>;
+    return (
+      <div>
+        <AnimatedSkeletonCard />
+      </div>
+    );
   }
   return (
     <section className="w-full !px-4 md:!px-8 bg-background ">
@@ -39,9 +46,19 @@ const ProductContainer = () => {
         viewport={{ once: true, margin: '-100px' }}
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {product?.data?.map((product, index) => (
-            <ProductCard key={product.id} {...product} index={index} />
-          ))}
+          {product?.data?.length == 0 ? (
+            <h1>No Product Found</h1>
+          ) : (
+            product?.data?.map((product, index) => (
+              <ProductCard key={product.id} {...product} index={index} />
+            ))
+          )}
+        </div>
+        <div>
+          <ReusablePagination
+            meta={product?.meta}
+            onPageChange={(newPage) => setCurrentPage(newPage)}
+          />
         </div>
       </motion.div>
     </section>

@@ -1,15 +1,14 @@
 import React from 'react';
-import { ContactInfo } from './ContactInfo';
 import { ContactForm } from './ContactForm';
 import Image from 'next/image';
 
 const ContactContainer = () => {
   return (
-    <div>
-      <div className="w-full ">
+    <div className=" w-[90%] !mx-auto">
+      <div className="!w-full">
         <div className="flex flex-col lg:flex-row lg:gap-16">
           {/* Left side - Contact Information */}
-          <div>
+          <div className="w-full lg:w-1/2">
             <Image
               src="/contact.png"
               alt="Contact Image"
@@ -19,7 +18,7 @@ const ContactContainer = () => {
             />
           </div>
           {/* Right side - Contact Form */}
-          <div className=" flex flex-1 justify-center items-center">
+          <div className=" w-full lg:w-1/2">
             <ContactForm />
           </div>
         </div>

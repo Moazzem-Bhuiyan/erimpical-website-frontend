@@ -1,6 +1,5 @@
 import ResponsiveContainer from '@/component/ResponsiveContainer/ResponsiveContainer';
 import ContactContainer from './_Component/ContactContainer';
-import { Mail, Phone, MapPin } from 'lucide-react';
 
 export async function generateMetadata() {
   return {
@@ -11,10 +10,8 @@ export async function generateMetadata() {
 
 export default function Contact() {
   return (
-    <div className=" h-screen flex justify-center items-center max-w-[90%] w-full !mx-auto ">
-      <main className="flex !w-full flex-col justify-between  items-center md:!p-6 md:!mt-10 ">
-        <ContactContainer />
-      </main>
-    </div>
+    <ResponsiveContainer>
+      <ContactContainer />
+    </ResponsiveContainer>
   );
 }

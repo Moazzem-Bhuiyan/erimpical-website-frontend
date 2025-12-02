@@ -5,6 +5,7 @@ import { Footer } from '@/component/shared/Footer/Footer';
 import ScrollTop from '@/component/ScrollTop/ScrollTop';
 import ReduxProviders from '@/redux/lib/Providers';
 import { Toaster } from 'sonner';
+import NextJsTopLoader from '@/component/shared/NextTopLoader/NextTopLoader';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -35,8 +36,9 @@ export default function RootLayout({ children }) {
       <body className={`${merriweather.variable} ${geistSans.variable} ${geistMono.variable}`}>
         {/* global Top bar */}
         <h1 className="text-xl text-center !bg-black !text-white !p-2 border">
-          YOUR REALITY ISN &nbsp;T MINE
+          YOUR REALITY ISN&nbsp;T MINE
         </h1>
+        <NextJsTopLoader />
         <Toaster richColors position="top-center" />
         <ReduxProviders>
           <Navber />

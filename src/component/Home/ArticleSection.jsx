@@ -69,7 +69,7 @@ export default function ArticlesSection() {
   const router = useRouter();
 
   // get products from api
-  const { article, loading, error } = UsegetAllArticle({ limit: 3, page: 1, searchtext: '' });
+  const { article, loading, error } = UsegetAllArticle({ limit: 3, page: 1, searchText: '' });
 
   console.log(article);
   return (

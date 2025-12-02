@@ -3,8 +3,10 @@ const { baseApi } = require('./baseApi');
 const orderAndPaymentApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getOrders: builder.query({
-      url: '/orders',
-      method: 'GET',
+      query: () => ({
+        url: '/orders/my-orders',
+        method: 'GET',
+      }),
     }),
     // add order
     addOrder: builder.mutation({
@@ -12,6 +14,14 @@ const orderAndPaymentApi = baseApi.injectEndpoints({
         url: '/orders',
         method: 'POST',
         body: data,
+      }),
+    }),
+
+    // dlete order
+    deleteOrder: builder.mutation({
+      query: (id) => ({
+        url: `/orders/${id}`,
+        method: 'DELETE',
       }),
     }),
     checkout: builder.mutation({
@@ -24,4 +34,9 @@ const orderAndPaymentApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetOrdersQuery, useAddOrderMutation, useCheckoutMutation } = orderAndPaymentApi;
+export const {
+  useGetOrdersQuery,
+  useAddOrderMutation,
+  useCheckoutMutation,
+  useDeleteOrderMutation,
+} = orderAndPaymentApi;

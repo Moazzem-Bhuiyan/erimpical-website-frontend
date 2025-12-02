@@ -2,6 +2,7 @@ import CommonPageHeader from '@/component/CommonPageHeader/CommonPageHeader';
 import ResponsiveContainer from '@/component/ResponsiveContainer/ResponsiveContainer';
 import FilterSection from './_Component/ProductFilter';
 import ProductContainer from './_Component/ProductContainer';
+import ProductFilterWrapper from './_Component/ProductFilterWrap';
 
 export const metadata = {
   title: 'Product',
@@ -21,18 +22,7 @@ export default function Page() {
           }}
         />
 
-        {/* Filter + Products Section */}
-        <div className="!mt-10 flex flex-col lg:flex-row lg:gap-x-10 w-full">
-          {/* Filter */}
-          <div className="w-full lg:w-1/4 !mb-8 lg:!mb-0">
-            <FilterSection />
-          </div>
-
-          {/* Products */}
-          <div className="w-full lg:w-3/4">
-            <ProductContainer />
-          </div>
-        </div>
+        <ProductFilterWrapper />
       </div>
     </ResponsiveContainer>
   );

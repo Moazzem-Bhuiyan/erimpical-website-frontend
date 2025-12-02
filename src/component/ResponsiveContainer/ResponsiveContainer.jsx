@@ -6,7 +6,7 @@ const ResponsiveContainer = ({ children, className, id, style }) => {
     <div className="flex justify-center !mt-20">
       <section
         className={cn(
-          '!mx-auto flex w-full max-w-[80%] !px-5 md:!px-10 lg:w-[80%] lg:!px-0 ',
+          '!mx-auto flex w-full !max-w-[80%] !px-5 md:!px-10 lg:!w-[80%] lg:!px-0 ',
           className
         )}
         id={id}

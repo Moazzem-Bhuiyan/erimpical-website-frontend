@@ -1,8 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Sliders } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import {
   Accordion,
   AccordionContent,
@@ -10,6 +9,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Slider } from '@/components/ui/slider';
+import { Input } from '@/components/ui/input';
 
 const sizes = [
   'XS-Small',
@@ -23,58 +23,45 @@ const sizes = [
   '4X-Large',
 ];
 
-export default function FilterSection() {
-  const [selectedSize, setSelectedSize] = useState('Large');
-  const [priceRange, setPriceRange] = useState([2000, 3500]);
+export default function FilterSection({ filters, setFilters }) {
+  const [selectedSize, setSelectedSize] = useState(filters.size || 'Large');
+  const [priceRange, setPriceRange] = useState(filters.priceRange);
+  const [searchTerm, setSearchTerm] = useState(filters.search);
 
-  const handleApplyFilter = () => {
-    console.log('Applied filters:', {
+  // 🔥 Auto-update filters whenever search, size or price changes
+  useEffect(() => {
+    setFilters({
+      search: searchTerm,
       size: selectedSize,
       priceRange: priceRange,
     });
-  };
+  }, [searchTerm, selectedSize, priceRange, setFilters]);
 
   return (
-    <div className="!px-4 !w-[350px]  bg-card rounded-lg border border-border !p-6 ">
-      {/* Header */}
+    <div className="!px-4 !w-[350px] bg-card rounded-lg border border-border !p-6">
       <div className="flex items-center justify-between !mb-6">
         <h2 className="text-lg font-semibold text-foreground">Filters</h2>
         <Sliders className="w-5 h-5 text-muted-foreground" />
       </div>
 
-      <Accordion type="multiple" className="w-full" defaultValue={['size', 'price']}>
-        {/* Size Filter */}
-        <AccordionItem value="size" className="border-b border-border">
-          <AccordionTrigger className="!py-3 text-foreground font-medium hover:no-underline">
-            Size
-          </AccordionTrigger>
-          <AccordionContent className="!pb-4">
-            <div className="grid grid-cols-2 gap-3">
-              {sizes.map((size) => (
-                <button
-                  key={size}
-                  onClick={() => setSelectedSize(size)}
-                  className={`!py-2 !px-3 rounded-md text-sm font-medium transition-colors ${
-                    selectedSize === size
-                      ? 'bg-primary text-primary-foreground'
-                      : 'bg-secondary text-secondary-foreground hover:bg-muted'
-                  }`}
-                >
-                  {size}
-                </button>
-              ))}
-            </div>
-          </AccordionContent>
-        </AccordionItem>
+      <Accordion type="multiple" className="w-full" defaultValue={['price']}>
+        {/* 🔍 Search */}
+        <div>
+          <Input
+            placeholder="Search"
+            className="!mt-4"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
 
-        {/* Price Range Filter */}
+        {/* 💵 Price Range */}
         <AccordionItem value="price" className="border-b-0 !mt-5">
           <AccordionTrigger className="!py-3 text-foreground font-medium hover:no-underline">
             Price Range
           </AccordionTrigger>
           <AccordionContent className="!pb-4">
             <div className="!space-y-4">
-              {/* Price Range Slider */}
               <div className="!px-5 !mt-2">
                 <Slider
                   min={0}
@@ -86,7 +73,6 @@ export default function FilterSection() {
                 />
               </div>
 
-              {/* Price Display */}
               <div className="flex justify-between items-center text-sm">
                 <span className="text-foreground font-medium">
                   ${priceRange[0].toLocaleString()}
@@ -100,14 +86,6 @@ export default function FilterSection() {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
-
-      {/* Apply Filter Button */}
-      <Button
-        onClick={handleApplyFilter}
-        className="w-full !mt-6 bg-primary text-primary-foreground rounded-full !py-2 font-semibold hover:opacity-90 transition-opacity"
-      >
-        Apply Filter
-      </Button>
     </div>
   );
 }

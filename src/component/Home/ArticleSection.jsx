@@ -73,9 +73,9 @@ export default function ArticlesSection() {
 
   console.log(article);
   return (
-    <section className="w-full !py-20 !px-4 md:!px-8 bg-background !my-20">
+    <section className="w-full md:!py-20 !py-5 !my-5 !px-4 md:!px-8 bg-background md:!my-20">
       <motion.div
-        className="max-w-[80%] !mx-auto"
+        className="md:max-w-[80%] !w-full  !mx-auto"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -94,7 +94,7 @@ export default function ArticlesSection() {
             </Animatetext>
             <Animatetext x={20} duration={1}>
               <motion.h2
-                className="text-4xl md:text-5xl font-bold text-foreground !mt-2"
+                className="text-xl md:text-5xl font-bold text-foreground !mt-2"
                 variants={titleVariants}
               >
                 Articles and Insights
@@ -104,7 +104,7 @@ export default function ArticlesSection() {
 
           {/* View More Button */}
           <motion.button
-            className="flex items-center gap-2 !px-5 !py-2 bg-foreground text-background rounded-full text-sm font-medium hover:bg-muted-foreground transition-colors"
+            className="flex items-center gap-2 text-[10px] md:!px-5 !px-2 md:!py-2 !py-1 bg-foreground text-background rounded-full text-sm font-medium hover:bg-muted-foreground transition-colors"
             variants={buttonVariants}
             whileHover="hover"
             onClick={() => {

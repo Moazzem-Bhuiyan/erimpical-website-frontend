@@ -36,7 +36,7 @@ export function ProfileHeader() {
           // onClick={() => router.push('/profile/edit')}
           variant="outline"
         >
-          <EditUserInfo />
+          <EditUserInfo user={user} />
         </button>
 
         <div className="flex-1">

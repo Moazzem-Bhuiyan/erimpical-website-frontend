@@ -203,3 +203,11 @@ a {
 #request-quote-btn:hover::before {
   transform: translate3d(50%, -50%, 0) scale3d(15, 15, 15);
 }
+
+.hero-important * {
+  all: revert-layer !important;
+}
+
+.hero-important {
+  all: revert-layer !important;
+}

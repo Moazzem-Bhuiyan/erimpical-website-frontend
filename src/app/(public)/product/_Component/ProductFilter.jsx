@@ -38,7 +38,7 @@ export default function FilterSection({ filters, setFilters }) {
   }, [searchTerm, selectedSize, priceRange, setFilters]);
 
   return (
-    <div className="!px-4 !w-[350px] bg-card rounded-lg border border-border !p-6">
+    <div className="!px-4 md:!w-[350px] !w-full bg-card rounded-lg border border-border !p-6">
       <div className="flex items-center justify-between !mb-6">
         <h2 className="text-lg font-semibold text-foreground">Filters</h2>
         <Sliders className="w-5 h-5 text-muted-foreground" />

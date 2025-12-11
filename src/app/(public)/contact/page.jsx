@@ -10,7 +10,7 @@ export async function generateMetadata() {
 
 export default function Contact() {
   return (
-    <ResponsiveContainer>
+    <ResponsiveContainer className={'w-full !p-0'}>
       <ContactContainer />
     </ResponsiveContainer>
   );

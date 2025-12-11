@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function page() {
   return (
-    <ResponsiveContainer>
+    <ResponsiveContainer className={'w-full !p-0'}>
       <GalleryPage />
     </ResponsiveContainer>
   );

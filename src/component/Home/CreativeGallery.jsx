@@ -18,7 +18,7 @@ export default function CreativeGallery() {
   const router = useRouter();
   const { data, isLoading, isError } = useGetGalleryQuery();
   return (
-    <div className="!py-20 !px-4 sm:!px-6 lg:!px-8 bg-background !my-10">
+    <div className="md:!py-20 !px-4 sm:!px-6 lg:!px-8 bg-background md:!my-10">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -34,7 +34,7 @@ export default function CreativeGallery() {
           </motion.p>
         </Animatetext>
         <Animatetext x={20} duration={1}>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground !mb-6 max-w-6xl !mx-auto">
+          <h2 className="text-xl md:text-5xl font-bold text-foreground !mb-6 max-w-6xl !mx-auto">
             Explore our artistic vision and creative works
           </h2>
         </Animatetext>
@@ -46,7 +46,7 @@ export default function CreativeGallery() {
           }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full !px-6 !py-3  bg-foreground text-background font-medium hover:shadow-lg transition-shadow"
+          className="inline-flex text-sm cursor-pointer items-center justify-center gap-2 rounded-full !px-6 !py-3  bg-foreground text-background font-medium hover:shadow-lg transition-shadow"
         >
           View More
           <ArrowRight className="w-4 h-4" />

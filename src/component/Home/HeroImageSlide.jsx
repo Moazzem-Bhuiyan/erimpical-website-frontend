@@ -15,7 +15,7 @@ export default function ImageSlider({ images }) {
   }, [images.length]);
 
   return (
-    <div className="relative w-full h-[600px] md:h-[722px] rounded-3xl overflow-hidden shadow-2xl">
+    <div className="relative md:w-full w-[80%] !mx-auto h-[500px] md:h-[722px] rounded-3xl overflow-hidden shadow-2xl">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentIndex}

@@ -106,7 +106,7 @@ export default function ProductInfo({ info }) {
         </div>
         <Button
           onClick={handleAddToCart}
-          className="flex-1 bg-foreground text-background hover:bg-foreground/90 rounded-full !py-6 text-lg font-semibold cursor-pointer"
+          className="flex-1 bg-foreground text-background hover:bg-foreground/90 rounded-full md:!py-6 md:text-lg font-semibold cursor-pointer"
         >
           {isLoading ? 'Adding...' : 'Add to Cart'}
         </Button>

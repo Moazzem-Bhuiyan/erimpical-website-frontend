@@ -18,7 +18,6 @@ const containerVariants = {
 };
 
 const ProductContainer = ({ filters }) => {
-  console.log('🚀 ~ ProductContainer ~ filters:', filters);
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 10;
 
@@ -37,7 +36,7 @@ const ProductContainer = ({ filters }) => {
     );
   }
   return (
-    <section className="w-full !px-4 md:!px-8 bg-background ">
+    <section className="w-full md:!px-4 md:!px-8 bg-background ">
       <motion.div
         className="max-w-full !mx-auto"
         variants={containerVariants}

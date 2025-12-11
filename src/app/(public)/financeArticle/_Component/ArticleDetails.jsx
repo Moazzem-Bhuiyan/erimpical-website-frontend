@@ -83,7 +83,7 @@ export default function ArticleDetailsPage({ ArticleDetails }) {
           {/* Title */}
           <motion.h1
             variants={itemVariants}
-            className="text-4xl md:text-5xl font-bold text-foreground"
+            className="text-xl md:text-5xl font-bold text-foreground"
           >
             {ArticleDetails?.data?.title || ''}
           </motion.h1>
@@ -91,7 +91,7 @@ export default function ArticleDetailsPage({ ArticleDetails }) {
           {/* Introduction */}
           <motion.p
             variants={itemVariants}
-            className="text-lg text-muted-foreground leading-relaxed"
+            className="md:text-lg text-muted-foreground leading-relaxed"
           >
             <div
               dangerouslySetInnerHTML={{

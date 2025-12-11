@@ -112,13 +112,13 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Version */}
-      <div className="lg:hidden w-full fixed top-0 left-0 bg-black/50 !z-50">
-        <div className="flex items-center justify-between !p-4 bg-black/70">
+      <div className="lg:hidden w-full fixed top-0 left-0 bg-white/100 !z-50 border">
+        <div className="flex items-center justify-between !p-4 bg-white/100">
           <Link href="/">
             <Image src={logo} alt="Logo" className="mx-auto" width={60} height={60} />
           </Link>
           <motion.div
-            className="text-white"
+            className="text-black cursor-pointer"
             initial={{ rotate: 0 }}
             animate={{ rotate: isMobileMenuOpen ? 180 : 0 }}
             transition={{ duration: 0.8 }}

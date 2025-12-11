@@ -18,15 +18,15 @@ export default function AricleContainer() {
 
   return (
     <div>
-      <div className="!px-4 sm:!px-6 lg:!px-8 !mt-20">
-        <div className=" !my-10 !space-y-10">
+      <div className="md:!px-4   lg:!px-8 !mt-20">
+        <div className=" !my-10 md:!space-y-10 !space-y-3 !px-2">
           <Animatetext x={20} duration={1}>
-            <h1 className="text-3xl md:text-5xl font-bold text-foreground text-center">
+            <h1 className="text-xl md:text-5xl font-bold text-foreground text-center">
               Insights for a Better Financial Future
             </h1>
           </Animatetext>
           <Animatetext x={-20} duration={1}>
-            <h1 className=" !mt-2 text-center text-pretty text-gray-400">
+            <h1 className=" !mt-2 text-center text-pretty text-gray-400 text-sm md:text-lg">
               Explore expert advice, in-depth articles, and practical tips to help you make smarter
               financial decisions
             </h1>
@@ -34,16 +34,16 @@ export default function AricleContainer() {
           <div className="flex justify-center">
             <Input
               placeholder="Search articles"
-              className={'mt-4 w-[20%] !mx-auto'}
+              className={'!mt-4 md:w-[20%] !mx-auto'}
               onChange={(e) => setSearchText(e.target.value)}
             />
           </div>
         </div>
 
         {/* ==============article section========== */}
-        <section className="w-full !py-20 !px-4 md:!px-8 bg-background !my-10">
+        <section className="w-full md:!py-20  md:!px-8 bg-background !my-10">
           <motion.div
-            className="max-w-[80%] !mx-auto"
+            className="md:max-w-[80%] !p-4 md:!p-0 !mx-auto"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"

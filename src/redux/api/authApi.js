@@ -72,6 +72,15 @@ const authApi = baseApi.injectEndpoints({
         method: 'GET',
       }),
     }),
+
+    // update my profile
+    UpdateProfile: builder.mutation({
+      query: (data) => ({
+        url: '/users/update-my-profile',
+        method: 'PUT',
+        body: data,
+      }),
+    }),
   }),
 
   overrideExisting: true,
@@ -85,4 +94,5 @@ export const {
   useForgotPasswordMutation,
   useResetPasswordMutation,
   useMyProfileQuery,
+  useUpdateProfileMutation,
 } = authApi;

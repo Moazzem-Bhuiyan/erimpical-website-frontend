@@ -28,7 +28,7 @@ export default function EventsSection() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-100px' }}
-        className="max-w-[80%] !mx-auto"
+        className="md:max-w-[80%] !mx-auto !w-full"
       >
         {/* Header */}
         <motion.div
@@ -45,7 +45,7 @@ export default function EventsSection() {
             </motion.p>
           </Animatetext>
           <Animatetext x={20} duration={1}>
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground !mb-6 max-w-4xl !mx-auto">
+            <h2 className=" md:text-5xl text-[15px] font-bold text-foreground !mb-6 max-w-4xl !mx-auto">
               Find experiences that inspire and connect you
             </h2>
           </Animatetext>
@@ -57,7 +57,7 @@ export default function EventsSection() {
             }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-flex cursor-pointer items-center justify-center gap-2 !px-6 !py-3 rounded-full bg-foreground text-background font-medium hover:shadow-lg transition-shadow"
+            className="inline-flex text-sm md:text-lg cursor-pointer items-center justify-center gap-2 !px-6 !py-3 rounded-full bg-foreground text-background font-medium hover:shadow-lg transition-shadow"
           >
             View More
             <ArrowRight className="w-4 h-4" />

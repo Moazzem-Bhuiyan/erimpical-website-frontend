@@ -4,9 +4,9 @@ import Image from 'next/image';
 
 const ContactContainer = () => {
   return (
-    <div className=" w-[90%] !mx-auto">
+    <div className=" md:w-[90%] w-full !mx-auto">
       <div className="!w-full">
-        <div className="flex flex-col lg:flex-row lg:gap-16">
+        <div className="flex flex-col lg:flex-row lg:gap-16 gap-5">
           {/* Left side - Contact Information */}
           <div className="w-full lg:w-1/2">
             <Image

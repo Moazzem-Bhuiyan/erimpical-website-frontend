@@ -73,13 +73,13 @@ export default function ProductsSection() {
               </span>
             </Animatetext>
             <Animatetext x={-20} duration={1}>
-              <h2 className="text-4xl md:text-5xl font-bold text-foreground !mt-2">Our Product</h2>
+              <h2 className="text-xl md:text-5xl font-bold text-foreground !mt-2">Our Product</h2>
             </Animatetext>
           </div>
 
           {/* View All Button */}
           <motion.button
-            className="flex items-center gap-2 !px-5 !py-2 border border-foreground rounded-full text-sm font-medium text-foreground hover:bg-foreground hover:text-background transition-colors"
+            className="flex items-center gap-2 md:!px-5 md:!py-2 !px-2 !py-1 border border-foreground rounded-full md:text-sm !text-[12px] font-medium text-foreground hover:bg-foreground hover:text-background transition-colors"
             variants={buttonVariants}
             whileHover="hover"
             onClick={() => {

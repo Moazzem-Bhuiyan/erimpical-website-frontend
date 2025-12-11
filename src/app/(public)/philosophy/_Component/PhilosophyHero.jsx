@@ -50,14 +50,14 @@ export default function PhilosophyheroSection() {
       >
         {/* Heading */}
         <Animatetext x={-20} duration={1}>
-          <motion.h2 className="text-4xl md:text-5xl font-bold text-white mb-8 text-pretty text-center">
+          <motion.h2 className="text-xl md:text-5xl font-bold text-white mb-8 text-pretty text-center">
             Our Philosophy
           </motion.h2>
         </Animatetext>
 
         {/* First paragraph */}
         <Animatetext x={20} duration={1}>
-          <motion.p className="text-lg text-white/90 mb-6 leading-relaxed text-pretty text-center">
+          <motion.p className="md:text-lg w-full text-white/90 mb-6 leading-relaxed text-pretty text-center">
             Building fashion that speaks to you, while respecting the planet and empowering
             communities through ethical practices.
           </motion.p>

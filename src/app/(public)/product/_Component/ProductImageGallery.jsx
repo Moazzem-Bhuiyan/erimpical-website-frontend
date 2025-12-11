@@ -17,7 +17,7 @@ export default function ProductImageGallery({ images = [], Productimages }) {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="relative bg-muted rounded-lg overflow-hidden aspect-[4/5] h-[550px] group cursor-pointer"
+        className="relative bg-muted rounded-lg overflow-hidden aspect-[4/5] md:h-[550px] group cursor-pointer"
       >
         <Image
           src={galleryImages[selectedImage] || '/placeholder.svg'}

@@ -16,10 +16,10 @@ export default function EventContainer() {
   }
 
   return (
-    <div className="!px-4 sm:!px-6 lg:!px-8 !mt-20">
-      <div className=" !my-10 !space-y-10">
+    <div className="md:!px-4 lg:!px-8 !mt-20">
+      <div className=" !my-10 md:!space-y-10 !space-y-3 !px-4">
         <Animatetext x={20} duration={1}>
-          <h1 className="text-3xl md:text-5xl font-bold text-foreground text-center">
+          <h1 className="text-xl md:text-5xl font-bold text-foreground text-center">
             Discover Amazing Events
           </h1>
         </Animatetext>
@@ -33,19 +33,19 @@ export default function EventContainer() {
           <Input
             onChange={(e) => setSearchtext(e.target.value)}
             placeholder="Search Events"
-            className={'mt-4 w-[20%] !mx-auto'}
+            className={'!mt-4 md:w-[20%] !mx-auto'}
           />
         </div>
       </div>
 
       {/* ==============event section========== */}
-      <section className="!py-20 !px-4 sm:!px-6 lg:!px-8 bg-background !my-10">
+      <section className="md:!py-20 lg:!px-8 bg-background md:!my-10">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
-          className="max-w-[80%] !mx-auto"
+          className="md:max-w-[80%] !p-4 md:!p-0 !mx-auto"
         >
           {/* Events Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

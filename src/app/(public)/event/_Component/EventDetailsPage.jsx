@@ -35,11 +35,6 @@ const imageVariants = {
 
 export default function EventDetailsPage({ EventDetails }) {
   const event = EventDetails?.data;
-  const aboutParagraphs = [
-    'The Finance Growth Summit 2025 was conceived to address the rapidly evolving landscape of financial services in an era of digital transformation and sustainability consciousness. Organized by the Bangladesh Finance Institute in collaboration with leading industry partners, this summit represents a pivotal moment for financial professionals to understand and shape the future of finance.',
-    'Our mission extends beyond traditional finance discourse. We aim to bridge the gap between established financial institutions and emerging fintech solutions, while emphasizing the critical importance of sustainable practices. The summit serves as a catalyst for meaningful discussions about financial inclusion, digital banking innovations, and the future of ethical finance.',
-    'Through interactive sessions, panel discussions, and networking opportunities, attendees will gain invaluable insights into market trends, regulatory changes, and technological advancements that are reshaping the financial sector. This event is designed to inspire collaboration and drive positive change in the financial industry.',
-  ];
 
   return (
     <main className="min-h-screen bg-background">
@@ -95,7 +90,7 @@ export default function EventDetailsPage({ EventDetails }) {
           {/* Title */}
           <motion.h1
             variants={itemVariants}
-            className="text-4xl md:text-5xl font-bold text-foreground"
+            className="text-xl md:text-5xl font-bold text-foreground"
           >
             {event?.title}
           </motion.h1>
@@ -103,7 +98,7 @@ export default function EventDetailsPage({ EventDetails }) {
           {/* Introduction */}
           <motion.p
             variants={itemVariants}
-            className="text-lg text-muted-foreground leading-relaxed"
+            className="md:text-lg text-muted-foreground leading-relaxed"
           >
             <div
               dangerouslySetInnerHTML={{

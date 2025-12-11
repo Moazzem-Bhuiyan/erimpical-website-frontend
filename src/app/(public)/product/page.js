@@ -11,8 +11,8 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <ResponsiveContainer>
-      <div className="!w-full !max-w-[1280px] !mx-auto !px-5 md:!px-10 lg:!px-0 !my-10">
+    <ResponsiveContainer className={'!w-full !p-0 md:p-1.5'}>
+      <div className="!w-full md:!max-w-[1280px] !mx-auto !px-0.5 md:!px-10 lg:!px-0 !my-10">
         {/* Page Header */}
         <CommonPageHeader
           pageTitle="Product"

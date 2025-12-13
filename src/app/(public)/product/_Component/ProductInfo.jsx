@@ -23,6 +23,12 @@ export default function ProductInfo({ info }) {
   const [addToCart, { isLoading }] = useAddToCartMutation();
 
   const handleAddToCart = async () => {
+    if (!UserId) {
+      toast.error('Please login to add products to cart');
+      router.push('/login');
+      return;
+    }
+
     if (!selectedSize) {
       toast.error('Please select a size');
       return;

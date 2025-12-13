@@ -5,8 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Send } from 'lucide-react';
+import { useState } from 'react';
+import { toast } from 'sonner';
 
 export function ContactForm() {
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -14,10 +17,23 @@ export function ContactForm() {
     reset,
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log('Form submitted:', data);
-    // Handle form submission here
-    reset();
+  const onSubmit = async (data) => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/inquires/sent-mail`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+      setLoading(false);
+      reset();
+      toast.success('Message sent successfully!');
+    } catch (error) {
+      toast.error(error.message || 'An error occurred. Please try again.');
+    }
   };
 
   return (

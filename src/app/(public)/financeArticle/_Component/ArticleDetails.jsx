@@ -54,7 +54,9 @@ export default function ArticleDetailsPage({ ArticleDetails }) {
             </Link>
 
             <ChevronRight className="w-4 h-4" />
-            <span className="text-foreground font-medium">Event details</span>
+            <span className="text-foreground font-medium">
+              {ArticleDetails?.data?.title || 'Article'} details
+            </span>
           </motion.div>
 
           {/* Hero Image */}

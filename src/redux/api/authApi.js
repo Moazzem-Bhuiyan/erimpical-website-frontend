@@ -8,8 +8,6 @@ const authApi = baseApi.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-
-      // invalidatesTags: [tagTypes.users, tagTypes.auth],
     }),
 
     signIn: builder.mutation({
@@ -71,6 +69,8 @@ const authApi = baseApi.injectEndpoints({
         url: '/users/my-profile',
         method: 'GET',
       }),
+
+      providesTags: ['user'],
     }),
 
     // update my profile
@@ -80,6 +80,7 @@ const authApi = baseApi.injectEndpoints({
         method: 'PUT',
         body: data,
       }),
+      invalidatesTags: ['user'],
     }),
   }),
 

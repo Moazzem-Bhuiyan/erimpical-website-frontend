@@ -6,14 +6,21 @@ import { Input } from '@/components/ui/input';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import UsegetAllArticle from '@/Hooks/UsegetAllArticle';
+import { AnimatedSkeletonCard } from '@/component/shared/Skeleton/SkeletonLoader';
 
 export default function AricleContainer() {
   const [searchText, setSearchText] = useState('');
   // get products from api
   const { article, loading, error } = UsegetAllArticle({ limit: 10, page: 1, searchText });
   if (loading) {
-    // <SkeletonCard />;
-    <h1>loading....</h1>;
+    <AnimatedSkeletonCard />;
+  }
+  if (error) {
+    return (
+      <div className="text-center justify-center items-center h-screen">
+        Something went wrong {error}
+      </div>
+    );
   }
 
   return (

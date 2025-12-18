@@ -65,8 +65,8 @@ export default function ArticleDetailsPage({ ArticleDetails }) {
             className="rounded-lg overflow-hidden h-64 md:h-80 relative"
           >
             <Image
-              src={ArticleDetails?.data?.thumbnail || '/fashion-launch-night.jpg'}
-              alt="Fashion Launch Night Event"
+              src={ArticleDetails?.data?.thumbnail || '/placeholder.svg'}
+              alt={ArticleDetails?.data?.title || 'Article'}
               fill
               className="object-cover"
             />

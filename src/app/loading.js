@@ -1,7 +1,6 @@
 'use client';
-import logo from '@/assets/Logo/logo.png';
 import Image from 'next/image';
-
+import logo from '@/assets/Logo/logo.png';
 export default function Loader({ fullScreen = true }) {
   if (fullScreen) {
     return (

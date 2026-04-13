@@ -28,12 +28,11 @@ export default function FilterSection({ filters, setFilters }) {
   const [priceRange, setPriceRange] = useState(filters.priceRange);
   const [searchTerm, setSearchTerm] = useState(filters.search);
 
-  // 🔥 Auto-update filters whenever search, size or price changes
   useEffect(() => {
     setFilters({
       search: searchTerm,
       size: selectedSize,
-      priceRange: priceRange,
+      priceRange: `${priceRange[0]}-${priceRange[1]}`,
     });
   }, [searchTerm, selectedSize, priceRange, setFilters]);
 
@@ -75,7 +74,7 @@ export default function FilterSection({ filters, setFilters }) {
 
               <div className="flex justify-between items-center text-sm">
                 <span className="text-foreground font-medium">
-                  ${priceRange[0].toLocaleString()}
+                  ${priceRange[0]?.toLocaleString()}
                 </span>
                 <span className="text-muted-foreground">-</span>
                 <span className="text-foreground font-medium">

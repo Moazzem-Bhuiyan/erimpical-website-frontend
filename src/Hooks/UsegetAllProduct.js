@@ -13,11 +13,7 @@ const UsegetAllProduct = ({ limit, page, searchText, priceRange }) => {
       setLoading(true);
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/products?limit=${limit}&page=${page}&searchTerm=${searchText}&priceRange=${priceRange}`,
-          {
-            // cache: 'force-cache',
-            next: { revalidate: 5 },
-          }
+          `${process.env.NEXT_PUBLIC_BASE_URL}/products?limit=${limit}&page=${page}&searchTerm=${searchText}&priceRange=${priceRange}`
         );
 
         if (!res.ok) throw new Error('Failed to fetch services');

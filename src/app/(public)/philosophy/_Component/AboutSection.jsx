@@ -123,7 +123,7 @@ export default function AboutHero() {
             variants={itemVariants}
           >
             <Image
-              src="/gellary/gallery5.png"
+              src="/gallery/team.png"
               alt="About Us - Modern clothing store"
               fill
               className="object-cover"

@@ -3,7 +3,6 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { useMyProfileQuery } from '@/redux/api/authApi';
 import { logout, selectToken } from '@/redux/slices/authSlice';
-import { Edit } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { EditUserInfo } from './EdituserInfoModal';
@@ -12,8 +11,7 @@ export function ProfileHeader() {
   const router = useRouter();
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
-  // get user info from api
-  const { data } = useMyProfileQuery({
+  const { data, isLoading, isError } = useMyProfileQuery(undefined, {
     skip: !token,
   });
   const user = data?.data;

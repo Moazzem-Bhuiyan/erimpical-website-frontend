@@ -20,14 +20,14 @@ const LINKS = [
     route: '/',
   },
   {
-    key: 'Shop',
-    label: 'Shop',
-    route: '/product',
-  },
-  {
     key: 'Philosophy',
     label: 'Philosophy',
     route: '/philosophy',
+  },
+  {
+    key: 'Shop',
+    label: 'Shop',
+    route: '/product',
   },
   {
     key: 'Events',

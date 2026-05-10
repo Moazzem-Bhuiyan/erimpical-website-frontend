@@ -18,10 +18,8 @@ const SPAN_PATTERN_LG = [
   'col-span-1 row-span-1',
 ];
 
-const ITEMS_PER_PAGE = 8;
-const TOTAL_PAGES = 30;
-
 export default function GalleryPage() {
+  const ITEMS_PER_PAGE = 8;
   const [currentPage, setCurrentPage] = useState(1);
   const { data, isLoading, isError } = useGetGalleryQuery();
 
@@ -54,6 +52,7 @@ export default function GalleryPage() {
     return <div className="flex h-screen items-center justify-center">Something went wrong</div>;
   }
 
+  const TOTAL_PAGES = data?.meta?.total;
   const handlePrevious = () => {
     setCurrentPage((prev) => (prev === 1 ? TOTAL_PAGES : prev - 1));
   };

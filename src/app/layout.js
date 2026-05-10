@@ -28,6 +28,38 @@ export const metadata = {
   },
   description:
     'Empirical is a cutting-edge platform that leverages advanced technologies to provide innovative solutions for data analysis, visualization, and decision-making. Our mission is to empower businesses and individuals with the tools they need to harness the power of their data effectively.',
+  keywords: [
+    'Empirical, data analysis, data visualization, decision-making, innovative solutions, cutting-edge platform, data-driven insights, business intelligence, data science, machine learning',
+  ],
+  authors: [{ name: 'Empirical Team', url: 'https://imperialempirical.com' }],
+  openGraph: {
+    title: 'Empirical -  Website',
+    description:
+      'Empirical is a Building fashion that speaks to you, while respecting the planet and empowering communities through ethical practices.',
+    url: 'https://imperialempirical.com',
+    siteName: 'Empirical',
+    images: [
+      {
+        url: 'https://i.ibb.co/fzjJ8WxQ/image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Empirical Open Graph Image',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Empirical -  Website',
+    description:
+      'Empirical is a Building fashion that speaks to you, while respecting the planet and empowering communities through ethical practices.',
+    images: ['https://i.ibb.co/fzjJ8WxQ/image.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }) {
